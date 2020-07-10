@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:insti_shop/widgets/unit_size.dart';
+import 'package:insti_shop/general/general.dart';
 import 'package:insti_shop/providers/dummy_data_shops.dart';
 import 'package:insti_shop/models/type_manager.dart';
 import 'package:insti_shop/widgets/dummy_body.dart';

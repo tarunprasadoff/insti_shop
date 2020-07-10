@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:insti_shop/widgets/unit_size.dart';
+import 'package:insti_shop/general/general.dart';
 import 'package:insti_shop/navigation/tab_manager.dart';
 
 import 'package:insti_shop/widgets/my_app_bar.dart';

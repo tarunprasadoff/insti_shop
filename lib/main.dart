@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                 fontSize: 14,
               ),
             )),
-        home: LoginScreen(),
+        home: TabManager(),
         routes: {
           TabManager.routeName: (_) => TabManager(),
         },

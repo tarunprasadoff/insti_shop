@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:insti_shop/widgets/unit_size.dart';
+import 'package:insti_shop/general/general.dart';
 
 class MyLogo extends StatelessWidget {
   final double size;

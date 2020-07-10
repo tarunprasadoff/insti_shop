@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/models/shop.dart';
 import 'package:insti_shop/models/type_manager.dart';
-import 'package:insti_shop/widgets/unit_size.dart';
+import 'package:insti_shop/general/general.dart';
 import 'package:insti_shop/screens/departmental_screen.dart';
 import 'package:insti_shop/screens/gen_screen.dart';
 import 'package:insti_shop/widgets/my_shop_detail_image_stack.dart';

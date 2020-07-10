@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/models/inventory_item.dart';
 import 'package:insti_shop/models/shop.dart';
-import 'package:insti_shop/widgets/unit_size.dart';
+import 'package:insti_shop/general/general.dart';
 import 'package:insti_shop/providers/departmental_items.dart';
 import 'package:insti_shop/widgets/dummy_body.dart';
+import 'package:insti_shop/widgets/inventory_items_list_widget.dart';
 import 'package:insti_shop/widgets/my_app_bar.dart';
 import 'package:insti_shop/widgets/my_shop_detail_image_stack.dart';
 import 'package:provider/provider.dart';
@@ -20,9 +21,14 @@ class DepartmentalScreen extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context).size;
     final unitSize = UnitSize().getUnitSize(mediaQuery);
     final double _imageHeight = mediaQuery.height * 0.25;
+
     final List<InventoryItem> _currentShopItems =
         Provider.of<DepartmentalItems>(context)
             .getCurrentShopItems(_shop.title);
+    final List<String> _categoriesList =
+        Provider.of<DepartmentalItems>(context, listen: false)
+            .getCurrentShopItemsListCategories(_currentShopItems);
+
     return Scaffold(
       appBar: MyAppBar(_shop.title),
       body: Container(
@@ -43,31 +49,9 @@ class DepartmentalScreen extends StatelessWidget {
                     'No Items Available',
                     isfullText: true,
                   ))
-                : Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (_, i) => ListTile(
-                        title: Text(
-                          _currentShopItems[i].title,
-                          textScaleFactor: unitSize,
-                        ),
-                        subtitle: _currentShopItems[i].description == null
-                            ? null
-                            : Text(
-                                _currentShopItems[i].description,
-                                textScaleFactor: unitSize,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .caption
-                                    .copyWith(color: Colors.grey),
-                              ),
-                        trailing: Text(
-                          '₹${_currentShopItems[i].price.toString()}',
-                          textScaleFactor: unitSize,
-                        ),
-                      ),
-                      itemCount: _currentShopItems.length,
-                    ),
-                  ),
+                : InventoryItemsListWidget(
+                    categoriesList: _categoriesList,
+                    currentShopItems: _currentShopItems),
           ],
         ),
       ),

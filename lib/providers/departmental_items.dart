@@ -54,4 +54,30 @@ class DepartmentalItems with ChangeNotifier {
         .where((element) => element.shopName == shopName)
         .toList();
   }
+
+  List<String> getCurrentShopItemsListCategories(
+      List<InventoryItem> currentShopItemsList) {
+    List<String> _categoriesList = [];
+    currentShopItemsList.forEach((element) {
+      String _currentItemCategory = element.itemCategory;
+      if (!_categoriesList.contains(_currentItemCategory)) {
+        _categoriesList.add(_currentItemCategory);
+      }
+    });
+    _categoriesList.sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
+    return _categoriesList;
+  }
+
+  List<InventoryItem> getCategoryItemsList(
+      String category, List<InventoryItem> currentShopItemsList) {
+    final List<InventoryItem> _categoryItemsList = currentShopItemsList
+        .where((element) => element.itemCategory == category)
+        .toList();
+    _categoryItemsList.sort((a, b) {
+      return a.title.toLowerCase().compareTo(b.title.toLowerCase());
+    });
+    return _categoryItemsList;
+  }
 }

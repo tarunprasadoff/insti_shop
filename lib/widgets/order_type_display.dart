@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/models/type_manager.dart';
 import 'package:insti_shop/widgets/order_type_select.dart';
-import 'package:insti_shop/widgets/unit_size.dart';
+import 'package:insti_shop/general/general.dart';
 
 class OrderTypeDisplay extends StatelessWidget {
   final String _title;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/models/type_manager.dart';
-import 'package:insti_shop/widgets/unit_size.dart';
+import 'package:insti_shop/general/general.dart';
 import 'package:insti_shop/widgets/grid_item.dart';
 import 'package:insti_shop/widgets/my_app_bar.dart';
 import 'package:insti_shop/widgets/my_logo.dart';
