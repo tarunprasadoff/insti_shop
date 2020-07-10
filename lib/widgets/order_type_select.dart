@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/models/type_manager.dart';
+import 'package:insti_shop/widgets/unit_size.dart';
 
 class OrderTypeSelect {
   void getOrderTypeSelectSheet(
@@ -8,14 +9,16 @@ class OrderTypeSelect {
     ShopType _shopType,
     Function _exec,
   ) {
+    final unitSize = UnitSize().getUnitSize(mediaQuery);
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+              topLeft: Radius.circular(unitSize * 25),
+              topRight: Radius.circular(unitSize * 25)),
         ),
         context: context,
         builder: (_) {
-          const double _dividerHeight = 4.0;
+          final double _dividerHeight = unitSize * 4.0;
           double _itemHeight = mediaQuery.height * .08;
           List<OrderType> _orderTypeList =
               TypeManager().getOrderTypeList(_shopType);
@@ -32,6 +35,7 @@ class OrderTypeSelect {
                       child: Center(
                         child: Text(
                           'Choose your Order Type:',
+                          textScaleFactor: unitSize,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2
@@ -74,6 +78,7 @@ class OrderTypeSelect {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2,
+                                        textScaleFactor: unitSize,
                                       ),
                                     ),
                                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/models/shop.dart';
+import 'package:insti_shop/widgets/unit_size.dart';
 
 class MyShopDetailImageStack extends StatelessWidget {
   final Shop shop;
@@ -8,6 +9,8 @@ class MyShopDetailImageStack extends StatelessWidget {
   MyShopDetailImageStack({this.shop, this.imageHeight, this.borderRadius});
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context).size;
+    final unitSize = UnitSize().getUnitSize(mediaQuery);
     return Stack(children: <Widget>[
       ClipRRect(
         child: Image.network(
@@ -33,13 +36,14 @@ class MyShopDetailImageStack extends StatelessWidget {
         borderRadius: borderRadius,
       ),
       Positioned(
-        bottom: 20,
-        left: 20,
+        bottom: unitSize * 20,
+        left: unitSize * 20,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(unitSize * 8),
           child: Container(
             color: Theme.of(context).accentColor,
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: EdgeInsets.symmetric(
+                horizontal: unitSize * 10, vertical: unitSize * 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -50,6 +54,7 @@ class MyShopDetailImageStack extends StatelessWidget {
                       ),
                   softWrap: true,
                   overflow: TextOverflow.fade,
+                  textScaleFactor: unitSize,
                 ),
                 Text(
                   shop.address,
@@ -57,6 +62,7 @@ class MyShopDetailImageStack extends StatelessWidget {
                   softWrap: true,
                   overflow: TextOverflow.fade,
                   textAlign: TextAlign.left,
+                  textScaleFactor: unitSize,
                 ),
               ],
             ),

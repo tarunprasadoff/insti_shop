@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insti_shop/widgets/unit_size.dart';
 import 'package:insti_shop/providers/dummy_data_shops.dart';
 import 'package:insti_shop/models/type_manager.dart';
 import 'package:insti_shop/widgets/dummy_body.dart';
@@ -37,6 +38,8 @@ class _ShopsScreenState extends State<ShopsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context).size;
+    final unitSize = UnitSize().getUnitSize(mediaQuery);
     final ShopType _shopType = widget._types['shopType'];
     final String _title = TypeManager().getShopTypeString(_shopType);
     final String _orderTypeString =
@@ -55,7 +58,8 @@ class _ShopsScreenState extends State<ShopsScreen> {
                 _shopType,
                 TypeManager().getOrderIconData(_orderType, _shopType),
                 _changeOrderType),
-            padding: EdgeInsets.only(top: 20, left: 15, bottom: 10),
+            padding: EdgeInsets.only(
+                top: unitSize * 20, left: unitSize * 15, bottom: unitSize * 10),
           ),
           _shops.length == 0
               ? Expanded(

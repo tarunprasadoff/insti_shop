@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:insti_shop/widgets/unit_size.dart';
 import 'package:insti_shop/navigation/tab_manager.dart';
 
 import 'package:insti_shop/widgets/my_app_bar.dart';
@@ -81,26 +82,45 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaquery = MediaQuery.of(context).size;
+    final mediaQuery = MediaQuery.of(context).size;
+    final unitSize = UnitSize().getUnitSize(mediaQuery);
+
+    final TextStyle _formInputStyle = Theme.of(context)
+        .textTheme
+        .bodyText1
+        .copyWith(
+            fontSize:
+                Theme.of(context).textTheme.bodyText1.fontSize * unitSize);
+
+    final TextStyle _hintStyle = TextStyle(fontSize: unitSize * 19);
+    final TextStyle _labelStyle = TextStyle(
+        color: Theme.of(context).primaryColor, fontSize: unitSize * 15);
+    final TextStyle _errorStyle =
+        TextStyle(fontSize: unitSize * 12, color: Theme.of(context).errorColor);
 
     var _phoneno = Form(
         key: _phonenoKey,
         child: TextFormField(
-          style: Theme.of(context).textTheme.bodyText1,
+          style: _formInputStyle,
           focusNode: _phonenoFocusNode,
           decoration: _labelphoneno
               ? InputDecoration(
                   labelText: 'Mobile Number:',
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+                  labelStyle: _labelStyle,
+                  errorStyle: _errorStyle,
                   prefixIcon: Icon(
                     Icons.phone,
                     color: Theme.of(context).primaryColor,
+                    size: unitSize * Theme.of(context).iconTheme.size,
                   ))
               : InputDecoration(
                   hintText: 'Your Mobile Number',
+                  hintStyle: _hintStyle,
+                  errorStyle: _errorStyle,
                   prefixIcon: Icon(
                     Icons.phone,
                     color: Theme.of(context).primaryColor,
+                    size: unitSize * Theme.of(context).iconTheme.size,
                   )),
           textInputAction:
               _preotp ? TextInputAction.done : TextInputAction.next,
@@ -127,21 +147,26 @@ class _LoginScreenState extends State<LoginScreen> {
     var _otp = Form(
         key: _otpKey,
         child: TextFormField(
-          style: Theme.of(context).textTheme.bodyText1,
+          style: _formInputStyle,
           focusNode: _otpFocusNode,
           decoration: _labelotp
               ? InputDecoration(
                   labelText: 'One-Time Password:',
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+                  labelStyle: _labelStyle,
+                  errorStyle: _errorStyle,
                   prefixIcon: Icon(
                     Icons.security,
                     color: Theme.of(context).primaryColor,
+                    size: unitSize * Theme.of(context).iconTheme.size,
                   ))
               : InputDecoration(
                   hintText: '6-digit OTP',
+                  hintStyle: _hintStyle,
+                  errorStyle: _errorStyle,
                   prefixIcon: Icon(
                     Icons.security,
                     color: Theme.of(context).primaryColor,
+                    size: unitSize * Theme.of(context).iconTheme.size,
                   )),
           textInputAction: TextInputAction.done,
           obscureText: !_showpass,
@@ -167,6 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Text(
             questionText,
             style: Theme.of(context).textTheme.bodyText2,
+            textScaleFactor: unitSize,
           ),
           FlatButton(
             child: Text(
@@ -175,6 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   .textTheme
                   .bodyText1
                   .copyWith(fontWeight: FontWeight.bold, fontSize: 19),
+              textScaleFactor: unitSize,
             ),
             onPressed: () {
               if (_preotp) {
@@ -196,21 +223,23 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: mediaquery.height * 0.07,
+                height: mediaQuery.height * 0.04,
               ),
-              MyLogo(size: mediaquery.width * 0.8),
+              MyLogo(size: mediaQuery.width * 0.8),
               SizedBox(
-                height: mediaquery.height * 0.05,
+                height: mediaQuery.height * 0.04,
               ),
               Card(
                 shape: RoundedRectangleBorder(
                     side: BorderSide(
-                        color: Theme.of(context).primaryColor, width: 1.5),
-                    borderRadius: BorderRadius.circular(15)),
+                        color: Theme.of(context).primaryColor,
+                        width: unitSize * 1.5),
+                    borderRadius: BorderRadius.circular(unitSize * 15)),
                 elevation: 6,
                 child: Container(
-                  width: mediaquery.width * 0.8,
-                  padding: EdgeInsets.symmetric(vertical: 22, horizontal: 15),
+                  width: mediaQuery.width * 0.8,
+                  padding: EdgeInsets.symmetric(
+                      vertical: unitSize * 22, horizontal: unitSize * 15),
                   child: Center(
                     child: Form(
                       key: _form,
@@ -219,13 +248,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           _phoneno,
                           if (!_preotp)
                             SizedBox(
-                              height: 25,
+                              height: unitSize * 25,
                             ),
                           if (!_preotp) _otp,
                           if (!_preotp)
                             CheckboxListTile(
                               activeColor: Theme.of(context).primaryColor,
-                              title: Text("Show Password"),
+                              title: Text(
+                                "Show Password",
+                                textScaleFactor: unitSize,
+                              ),
                               value: _showpass,
                               onChanged: (newValue) {
                                 setState(() {
@@ -242,7 +274,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(
-                height: mediaquery.height * (_preotp ? 0.09 : .025),
+                height: mediaQuery.height * (_preotp ? 0.09 : .025),
               ),
               _preotp
                   ? (_loginstate
@@ -251,7 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       : _buildBelowFormWidget('Already Registered?', 'Login'))
                   : _buildBelowFormWidget('Didn\'t receive OTP?', 'Resend'),
               SizedBox(
-                height: mediaquery.height * (_preotp ? 0.09 : .02),
+                height: mediaQuery.height * (_preotp ? 0.09 : .02),
               ),
               MyRaisedButton(_buttonAction,
                   (_preotp ? 'Verify' : (_loginstate ? 'Login' : 'Sign-Up')))

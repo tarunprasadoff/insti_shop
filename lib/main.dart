@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
             primaryColor: Color(0xff8372b4),
             primaryColorLight: Colors.deepPurple[200],
             accentColor: Colors.black,
+            iconTheme: IconThemeData(size: 21),
             textTheme: TextTheme(
               bodyText1: TextStyle(
                   color: Color(0xff8372b4), fontSize: 21, height: 1.4),
@@ -41,14 +42,14 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold),
               headline1: TextStyle(
                   color: Colors.black,
-                  fontSize: 24,
+                  fontSize: 22,
                   fontWeight: FontWeight.bold),
               caption: TextStyle(
                 color: Colors.white,
                 fontSize: 14,
               ),
             )),
-        home: TabManager(),
+        home: LoginScreen(),
         routes: {
           TabManager.routeName: (_) => TabManager(),
         },
