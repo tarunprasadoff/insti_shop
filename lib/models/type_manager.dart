@@ -124,7 +124,7 @@ class TypeManager {
         return Icons.restaurant;
         break;
       case OrderType.takeAway:
-        return Icons.shopping_basket;
+        return Icons.local_mall;
         break;
       case OrderType.delivery:
         return Icons.directions_bike;
@@ -141,7 +141,7 @@ class TypeManager {
             return Icons.print;
             break;
           case ShopType.departmental:
-            return Icons.account_balance_wallet;
+            return Icons.store_mall_directory;
             break;
           default:
         }

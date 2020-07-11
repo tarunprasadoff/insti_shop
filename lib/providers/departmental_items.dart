@@ -49,6 +49,11 @@ class DepartmentalItems with ChangeNotifier {
         isPriceMRP: true),
   ];
 
+  void removeInventoryItem(String title) {
+    departmentalItemsList.removeWhere((element) => element.title == title);
+    notifyListeners();
+  }
+
   List<InventoryItem> getCurrentShopItems(String shopName) {
     return departmentalItemsList
         .where((element) => element.shopName == shopName)
