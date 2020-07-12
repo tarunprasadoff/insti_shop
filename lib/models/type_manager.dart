@@ -11,6 +11,10 @@ enum OrderType {
   pickUpAndDelivery,
 }
 
+enum ClosedCommunity {
+  iITMadras,
+}
+
 class TypeManager {
   // ignore: missing_return
   String getShopTypeString(ShopType shopType) {
@@ -51,19 +55,19 @@ class TypeManager {
     if (shop.type == shopType) {
       switch (orderType) {
         case OrderType.dineIn:
-          return shop.dineIn;
+          return shop.orderTypeStatusMap[OrderType.dineIn];
           break;
         case OrderType.takeAway:
-          return shop.takeAway;
+          return shop.orderTypeStatusMap[OrderType.takeAway];
           break;
         case OrderType.delivery:
-          return shop.delivery;
+          return shop.orderTypeStatusMap[OrderType.delivery];
           break;
         case OrderType.atShopOrder:
-          return shop.atShopOrder;
+          return shop.orderTypeStatusMap[OrderType.atShopOrder];
           break;
         case OrderType.pickUpAndDelivery:
-          return shop.pickUpAndDelivery;
+          return shop.orderTypeStatusMap[OrderType.pickUpAndDelivery];
           break;
         default:
       }

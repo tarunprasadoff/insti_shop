@@ -1,21 +1,26 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 class InventoryItem {
-  final String title;
-  final String description;
-  final String itemCategory;
-  final String shopName;
-  final int availableQuantity;
-  final double price;
-  final bool isPriceMRP;
+  dynamic key;
+  String title;
+  String description;
+  String itemCategory;
+  int availableQuantity;
+  double price;
+  bool isPriceMRP;
+  final dynamic shopKey;
 
   InventoryItem({
+    this.key,
     @required this.title,
     this.description,
     @required this.itemCategory,
-    @required this.shopName,
+    @required this.shopKey,
     @required this.availableQuantity,
     @required this.price,
     @required this.isPriceMRP,
-  });
+  }) {
+    key = UniqueKey();
+  }
 }

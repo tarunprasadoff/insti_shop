@@ -1,19 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:insti_shop/models/inventory_item.dart';
+import 'package:insti_shop/models/shop.dart';
+import 'package:insti_shop/models/type_manager.dart';
 
 class DepartmentalItems with ChangeNotifier {
   final List<InventoryItem> departmentalItemsList = [
     InventoryItem(
         title: 'Colgate Toothpaste',
         itemCategory: 'Everyday',
-        shopName: 'Prime Mart',
+        shopKey: ValueKey(ShopKeyInput(
+            title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 5,
         price: 30,
         isPriceMRP: true),
     InventoryItem(
         title: 'Hammam Soap',
         itemCategory: 'Everyday',
-        shopName: 'Prime Mart',
+        shopKey: ValueKey(ShopKeyInput(
+            title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 12,
         price: 20,
         isPriceMRP: true),
@@ -21,21 +25,24 @@ class DepartmentalItems with ChangeNotifier {
         title: 'Axe Deodorants',
         description: 'Pack of 3',
         itemCategory: 'Everyday',
-        shopName: 'Prime Mart',
+        shopKey: ValueKey(ShopKeyInput(
+            title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 8,
         price: 450,
         isPriceMRP: true),
     InventoryItem(
         title: 'Broomstick',
         itemCategory: 'Cleaning',
-        shopName: 'Prime Mart',
+        shopKey: ValueKey(ShopKeyInput(
+            title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 10,
         price: 40,
         isPriceMRP: false),
     InventoryItem(
         title: 'Mop Stick',
         itemCategory: 'Cleaning',
-        shopName: 'Prime Mart',
+        shopKey: ValueKey(ShopKeyInput(
+            title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 4,
         price: 80,
         isPriceMRP: false),
@@ -43,7 +50,8 @@ class DepartmentalItems with ChangeNotifier {
         title: 'Lyzol Liquid',
         description: 'Buy 1 Get 1 Free',
         itemCategory: 'Cleaning',
-        shopName: 'Prime Mart',
+        shopKey: ValueKey(ShopKeyInput(
+            title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 6,
         price: 120,
         isPriceMRP: true),
@@ -54,9 +62,9 @@ class DepartmentalItems with ChangeNotifier {
     notifyListeners();
   }
 
-  List<InventoryItem> getCurrentShopItems(String shopName) {
+  List<InventoryItem> getCurrentShopItems(dynamic shopKey) {
     return departmentalItemsList
-        .where((element) => element.shopName == shopName)
+        .where((element) => element.shopKey == shopKey)
         .toList();
   }
 

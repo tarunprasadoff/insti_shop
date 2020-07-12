@@ -23,8 +23,7 @@ class DepartmentalScreen extends StatelessWidget {
     final double _imageHeight = mediaQuery.height * 0.25;
 
     final List<InventoryItem> _currentShopItems =
-        Provider.of<DepartmentalItems>(context)
-            .getCurrentShopItems(_shop.title);
+        Provider.of<DepartmentalItems>(context).getCurrentShopItems(_shop.key);
     final List<String> _categoriesList =
         Provider.of<DepartmentalItems>(context, listen: false)
             .getCurrentShopItemsListCategories(_currentShopItems);

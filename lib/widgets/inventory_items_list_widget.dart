@@ -26,9 +26,8 @@ class InventoryItemsListWidget extends StatelessWidget {
       child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-              top: unitSize * 25,
-              left: mediaQuery.width / 32,
-              right: mediaQuery.width / 32),
+            top: unitSize * 25,
+          ),
           child: Column(
             children: <Widget>[
               ..._categoriesList.map((categoryName) {
@@ -36,7 +35,8 @@ class InventoryItemsListWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: unitSize * 10),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: unitSize * 22.5),
                       child: Text(
                         '$categoryName:',
                         textAlign: TextAlign.left,

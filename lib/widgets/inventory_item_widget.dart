@@ -10,7 +10,7 @@ class InventoryItemWidget extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context).size;
     final unitSize = UnitSize().getUnitSize(mediaQuery);
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: unitSize * 10),
+      padding: EdgeInsets.symmetric(vertical: unitSize * 10, horizontal: 12.5),
       child: ListTile(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

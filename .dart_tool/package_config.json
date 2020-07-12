@@ -56,6 +56,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "equatable",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/equatable-1.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///C:/src/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -182,7 +188,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-07-07T05:26:57.922735Z",
+  "generated": "2020-07-12T00:04:40.258528Z",
   "generator": "pub",
   "generatorVersion": "2.8.4"
 }
