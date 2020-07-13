@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/models/inventory_item.dart';
 import 'package:insti_shop/general/general.dart';
+import 'package:insti_shop/models/type_manager.dart';
+import 'package:insti_shop/widgets/item_handler_widget.dart';
 
 class InventoryItemWidget extends StatelessWidget {
   final InventoryItem inventoryItem;
-  InventoryItemWidget({@required this.inventoryItem});
+  final OrderType orderType;
+  InventoryItemWidget({@required this.inventoryItem, @required this.orderType});
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -45,74 +48,11 @@ class InventoryItemWidget extends StatelessWidget {
               color: Theme.of(context).accentColor,
               fontWeight: FontWeight.bold),
         ),
-        trailing: ClipRRect(
-          borderRadius: BorderRadius.circular(unitSize * 27),
-          child: Container(
-            width: unitSize * 100,
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                      width: unitSize * 2,
-                      color: Theme.of(context).primaryColor),
-                  borderRadius: BorderRadius.circular(unitSize * 25)),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: unitSize * 0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(unitSize * 25),
-                        topLeft: Radius.circular(unitSize * 25),
-                      ),
-                      child: Container(
-                        color: Theme.of(context).primaryColor,
-                        child: InkWell(
-                          child: Icon(
-                            Icons.add,
-                            size: 25 * unitSize,
-                            color: Colors.white,
-                          ),
-                          onTap: () {},
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: unitSize * 8.0),
-                    child: Text(
-                      '1',
-                      textScaleFactor: unitSize,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2
-                          .copyWith(color: Theme.of(context).primaryColor),
-                    ),
-                  ),
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(unitSize * 25),
-                        topRight: Radius.circular(unitSize * 25),
-                      ),
-                      child: Container(
-                        color: Theme.of(context).primaryColor,
-                        child: InkWell(
-                          child: Icon(
-                            Icons.remove,
-                            size: 25 * unitSize,
-                            color: Colors.white,
-                          ),
-                          onTap: () {},
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+        trailing: ItemHandlerWidget(
+          itemKey: inventoryItem.key,
+          orderType: orderType,
+          errorMessage:
+              inventoryItem.title == 'Broomstick' ? 'Not Deliverable' : null,
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:insti_shop/models/inventory_item.dart';
 import 'package:insti_shop/models/shop.dart';
 import 'package:insti_shop/general/general.dart';
+import 'package:insti_shop/models/type_manager.dart';
 import 'package:insti_shop/providers/departmental_items.dart';
 import 'package:insti_shop/widgets/dummy_body.dart';
 import 'package:insti_shop/widgets/inventory_items_list_widget.dart';
@@ -12,12 +13,15 @@ import 'package:provider/provider.dart';
 class DepartmentalScreen extends StatelessWidget {
   static const routeName = '/departmental_screen.dart';
 
-  final Shop _shop;
+  final Map<String, Object> _inputArguments;
 
-  DepartmentalScreen(this._shop);
+  DepartmentalScreen(this._inputArguments);
 
   @override
   Widget build(BuildContext context) {
+    final Shop _shop = _inputArguments['shop'];
+    final OrderType _orderType = _inputArguments['orderType'];
+
     final mediaQuery = MediaQuery.of(context).size;
     final unitSize = UnitSize().getUnitSize(mediaQuery);
     final double _imageHeight = mediaQuery.height * 0.25;
@@ -50,7 +54,9 @@ class DepartmentalScreen extends StatelessWidget {
                   ))
                 : InventoryItemsListWidget(
                     categoriesList: _categoriesList,
-                    currentShopItems: _currentShopItems),
+                    currentShopItems: _currentShopItems,
+                    orderType: _orderType,
+                  ),
           ],
         ),
       ),

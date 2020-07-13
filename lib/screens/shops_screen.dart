@@ -70,7 +70,7 @@ class _ShopsScreenState extends State<ShopsScreen> {
                 )
               : Expanded(
                   child: ListView.builder(
-                    itemBuilder: (_, i) => ShopItem(_shops[i]),
+                    itemBuilder: (_, i) => ShopItem(_shops[i], _orderType),
                     itemCount: _shops.length,
                   ),
                 ),

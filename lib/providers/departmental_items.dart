@@ -6,6 +6,7 @@ import 'package:insti_shop/models/type_manager.dart';
 class DepartmentalItems with ChangeNotifier {
   final List<InventoryItem> departmentalItemsList = [
     InventoryItem(
+        key: UniqueKey(),
         title: 'Colgate Toothpaste',
         itemCategory: 'Everyday',
         shopKey: ValueKey(ShopKeyInput(
@@ -14,6 +15,7 @@ class DepartmentalItems with ChangeNotifier {
         price: 30,
         isPriceMRP: true),
     InventoryItem(
+        key: UniqueKey(),
         title: 'Hammam Soap',
         itemCategory: 'Everyday',
         shopKey: ValueKey(ShopKeyInput(
@@ -22,6 +24,7 @@ class DepartmentalItems with ChangeNotifier {
         price: 20,
         isPriceMRP: true),
     InventoryItem(
+        key: UniqueKey(),
         title: 'Axe Deodorants',
         description: 'Pack of 3',
         itemCategory: 'Everyday',
@@ -31,6 +34,7 @@ class DepartmentalItems with ChangeNotifier {
         price: 450,
         isPriceMRP: true),
     InventoryItem(
+        key: UniqueKey(),
         title: 'Broomstick',
         itemCategory: 'Cleaning',
         shopKey: ValueKey(ShopKeyInput(
@@ -39,6 +43,7 @@ class DepartmentalItems with ChangeNotifier {
         price: 40,
         isPriceMRP: false),
     InventoryItem(
+        key: UniqueKey(),
         title: 'Mop Stick',
         itemCategory: 'Cleaning',
         shopKey: ValueKey(ShopKeyInput(
@@ -47,6 +52,7 @@ class DepartmentalItems with ChangeNotifier {
         price: 80,
         isPriceMRP: false),
     InventoryItem(
+        key: UniqueKey(),
         title: 'Lyzol Liquid',
         description: 'Buy 1 Get 1 Free',
         itemCategory: 'Cleaning',
@@ -57,8 +63,8 @@ class DepartmentalItems with ChangeNotifier {
         isPriceMRP: true),
   ];
 
-  void removeInventoryItem(String title) {
-    departmentalItemsList.removeWhere((element) => element.title == title);
+  void removeInventoryItem(dynamic key) {
+    departmentalItemsList.removeWhere((element) => element.key == key);
     notifyListeners();
   }
 

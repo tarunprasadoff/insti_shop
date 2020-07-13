@@ -8,8 +8,10 @@ import 'package:insti_shop/widgets/my_shop_detail_image_stack.dart';
 
 class ShopItem extends StatelessWidget {
   final Shop _shop;
+  final OrderType orderType;
   ShopItem(
     this._shop,
+    this.orderType,
   );
 
   @override
@@ -20,8 +22,8 @@ class ShopItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (_shop.type == ShopType.departmental) {
-          Navigator.of(context)
-              .pushNamed(DepartmentalScreen.routeName, arguments: _shop);
+          Navigator.of(context).pushNamed(DepartmentalScreen.routeName,
+              arguments: {'shop': _shop, 'orderType': orderType});
         } else {
           Navigator.of(context)
               .pushNamed(GenScreen.routeName, arguments: _shop.title);

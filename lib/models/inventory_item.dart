@@ -12,7 +12,7 @@ class InventoryItem {
   final dynamic shopKey;
 
   InventoryItem({
-    this.key,
+    @required this.key,
     @required this.title,
     this.description,
     @required this.itemCategory,
@@ -20,7 +20,5 @@ class InventoryItem {
     @required this.availableQuantity,
     @required this.price,
     @required this.isPriceMRP,
-  }) {
-    key = UniqueKey();
-  }
+  });
 }
