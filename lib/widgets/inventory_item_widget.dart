@@ -52,12 +52,16 @@ class InventoryItemWidget extends StatelessWidget {
               fontWeight: FontWeight.bold),
         ),
         trailing: ItemHandlerWidget(
+          itemCount: Provider.of<Cart>(context)
+              .getQuantity(inventoryItem.key, orderType),
           itemKey: inventoryItem.key,
           orderType: orderType,
           shopKey: inventoryItem.shopKey,
-          errorMessage: Provider.of<DepartmentalItems>(context, listen: false)
+          errorMessage: Provider.of<DepartmentalItems>(context)
               .getAnyErrorMessage(inventoryItem, orderType),
-          handlerFunction: Provider.of<Cart>(context).inventoryItemCountHandler,
+          handlerFunction: Provider.of<Cart>(context, listen: false)
+              .inventoryItemCountHandler,
+          maxCount: inventoryItem.availableQuantity,
         ),
       ),
     );

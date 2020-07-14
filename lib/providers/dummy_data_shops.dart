@@ -86,4 +86,8 @@ class DummyDataShops with ChangeNotifier {
   Shop getShop(dynamic shopKey) {
     return shopList.firstWhere((element) => element.key == shopKey);
   }
+
+  String getShopTitle(dynamic shopKey) {
+    return shopList.firstWhere((element) => element.key == shopKey).title;
+  }
 }

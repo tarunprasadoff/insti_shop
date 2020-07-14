@@ -111,4 +111,8 @@ class DepartmentalItems with ChangeNotifier {
     });
     return _categoryItemsList;
   }
+
+  InventoryItem getInventoryItem(dynamic key) {
+    return departmentalItemsList.firstWhere((element) => element.key == key);
+  }
 }

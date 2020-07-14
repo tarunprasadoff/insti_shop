@@ -52,15 +52,11 @@ class _ShopsScreenState extends State<ShopsScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            child: OrderTypeDisplay(
-                _orderTypeString,
-                _shopType,
-                TypeManager().getOrderIconData(_orderType, _shopType),
-                _changeOrderType),
-            padding: EdgeInsets.only(
-                top: unitSize * 20, left: unitSize * 15, bottom: unitSize * 10),
-          ),
+          OrderTypeDisplay(
+              _orderTypeString,
+              _shopType,
+              TypeManager().getOrderIconData(_orderType, _shopType),
+              _changeOrderType),
           _shops.length == 0
               ? Expanded(
                   child: DummyBody(

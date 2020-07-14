@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:insti_shop/general/general.dart';
 import 'package:insti_shop/models/shop.dart';
 import 'package:insti_shop/models/type_manager.dart';
 
@@ -21,32 +20,14 @@ class Cart with ChangeNotifier {
     return {..._cartDetails};
   }
 
-  Future<bool> _getWarningDialog(BuildContext context, String warningMessage) {
-    return showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-          content: Text(
-            '$warningMessage. Do you want to clear cart and add item?',
-            textScaleFactor:
-                UnitSize().getUnitSize(MediaQuery.of(context).size),
-            style: Theme.of(context)
-                .textTheme
-                .caption
-                .copyWith(color: Theme.of(context).accentColor),
-          ),
-          actions: <Widget>[
-            FlatButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop(false);
-                },
-                child: Text('No')),
-            FlatButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop(true);
-                },
-                child: Text('Yes'))
-          ]),
-    );
+  int getQuantity(dynamic itemKey, OrderType orderType) {
+    int itemIndex =
+        _cartItems.indexWhere((element) => element['itemKey'] == itemKey);
+    if (itemIndex == -1 || orderType != _cartDetails['orderType']) {
+      return 0;
+    } else {
+      return _cartItems[itemIndex]['quantity'];
+    }
   }
 
   void _setCartDetails(OrderType orderType, Shop shop) {
@@ -56,16 +37,14 @@ class Cart with ChangeNotifier {
   }
 
   Future<bool> _ifValid(
-      OrderType orderType, Shop shop, BuildContext context) async {
-    if (_cartDetails['shopKey'] == null ||
-        _cartDetails['shopKey'] == shop.key) {
-      if (_cartDetails['orderType'] == null ||
-          _cartDetails['orderType'] == orderType) {
+      OrderType orderType, Shop shop, Function getWarningDialog) async {
+    if (_cartItems.length == 0 || _cartDetails['shopKey'] == shop.key) {
+      if (_cartItems.length == 0 || _cartDetails['orderType'] == orderType) {
         _setCartDetails(orderType, shop);
         return true;
       } else {
-        if (await _getWarningDialog(context,
-            'Cart contains items from ${TypeManager().getOrderTypeString(orderType, shop.type)} order type from ${shop.title}.')) {
+        if (await getWarningDialog(
+            'Cart currently contains ${TypeManager().getOrderTypeString(orderType, shop.type)} items from ${shop.title}.')) {
           _setCartDetails(orderType, shop);
           _cartItems = [];
           return true;
@@ -74,8 +53,8 @@ class Cart with ChangeNotifier {
         }
       }
     } else {
-      if (await _getWarningDialog(
-          context, 'Cart contains items from ${shop.title} order type.')) {
+      if (await getWarningDialog(
+          'Cart currently contains items from ${shop.title}.')) {
         _setCartDetails(orderType, shop);
         _cartItems = [];
         return true;
@@ -86,12 +65,12 @@ class Cart with ChangeNotifier {
   }
 
   Future<void> inventoryItemCountHandler(
-      {BuildContext context,
-      int integralChange,
+      {int integralChange,
       OrderType itemOrderType,
       Shop shop,
-      dynamic itemKey}) async {
-    if (await _ifValid(itemOrderType, shop, context)) {
+      dynamic itemKey,
+      Function getWarningDialog}) async {
+    if (await _ifValid(itemOrderType, shop, getWarningDialog)) {
       int itemIndex =
           _cartItems.indexWhere((element) => element['itemKey'] == itemKey);
       if (itemIndex != -1) {
@@ -101,8 +80,7 @@ class Cart with ChangeNotifier {
       } else {
         _cartItems.add({'itemKey': itemKey, 'quantity': 1});
       }
-      print(_cartItems);
-      print(_cartDetails);
     }
+    notifyListeners();
   }
 }

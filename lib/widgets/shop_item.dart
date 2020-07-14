@@ -22,10 +22,11 @@ class ShopItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (_shop.type == ShopType.departmental) {
-          Navigator.of(context).pushNamed(DepartmentalScreen.routeName,
+          Navigator.of(context, rootNavigator: true).pushNamed(
+              DepartmentalScreen.routeName,
               arguments: {'shop': _shop, 'orderType': orderType});
         } else {
-          Navigator.of(context)
+          Navigator.of(context, rootNavigator: true)
               .pushNamed(GenScreen.routeName, arguments: _shop.title);
         }
       },

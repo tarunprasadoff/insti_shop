@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/screens/cart_screen.dart';
-import 'package:insti_shop/screens/departmental_screen.dart';
-import 'package:insti_shop/screens/gen_screen.dart';
 import 'package:insti_shop/screens/orders_screen.dart';
 import 'package:insti_shop/screens/profile_screen.dart';
 import 'package:insti_shop/screens/shop_type_select_screen.dart';
@@ -34,8 +32,6 @@ class TabNavigator extends StatelessWidget {
         }
       },
       ShopsScreen.routeName: (context) => ShopsScreen(arguments),
-      DepartmentalScreen.routeName: (context) => DepartmentalScreen(arguments),
-      GenScreen.routeName: (context) => GenScreen(arguments),
     };
   }
 

@@ -4,6 +4,8 @@ import 'package:insti_shop/providers/cart.dart';
 import 'package:insti_shop/providers/departmental_items.dart';
 import 'package:insti_shop/providers/dummy_data_shops.dart';
 import 'package:insti_shop/navigation/tab_manager.dart';
+import 'package:insti_shop/screens/departmental_screen.dart';
+import 'package:insti_shop/screens/gen_screen.dart';
 
 import 'package:insti_shop/screens/login_screen.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +58,21 @@ class MyApp extends StatelessWidget {
         home: TabManager(),
         routes: {
           TabManager.routeName: (_) => TabManager(),
+        },
+        // ignore: missing_return
+        onGenerateRoute: (routeSettings) {
+          switch (routeSettings.name) {
+            case DepartmentalScreen.routeName:
+              return MaterialPageRoute(
+                  builder: (context) =>
+                      DepartmentalScreen(routeSettings.arguments));
+              break;
+            case GenScreen.routeName:
+              return MaterialPageRoute(
+                  builder: (context) => GenScreen(routeSettings.arguments));
+              break;
+            default:
+          }
         },
       ),
     );
