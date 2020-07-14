@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:insti_shop/providers/cart.dart';
 import 'package:insti_shop/providers/departmental_items.dart';
 import 'package:insti_shop/providers/dummy_data_shops.dart';
 import 'package:insti_shop/navigation/tab_manager.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => DepartmentalItems(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Cart(),
         ),
       ],
       child: MaterialApp(

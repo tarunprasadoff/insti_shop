@@ -10,6 +10,7 @@ class InventoryItem {
   double price;
   bool isPriceMRP;
   final dynamic shopKey;
+  bool isDeliverable;
 
   InventoryItem({
     @required this.key,
@@ -20,5 +21,6 @@ class InventoryItem {
     @required this.availableQuantity,
     @required this.price,
     @required this.isPriceMRP,
+    @required this.isDeliverable,
   });
 }

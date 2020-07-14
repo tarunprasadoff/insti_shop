@@ -82,4 +82,8 @@ class DummyDataShops with ChangeNotifier {
             TypeManager().getOrderTypeValidity(orderType, element, shopType))
         .toList();
   }
+
+  Shop getShop(dynamic shopKey) {
+    return shopList.firstWhere((element) => element.key == shopKey);
+  }
 }

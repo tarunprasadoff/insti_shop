@@ -26,50 +26,45 @@ class InventoryItemsListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
     final unitSize = UnitSize().getUnitSize(mediaQuery);
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: unitSize * 25,
-          ),
-          child: Column(
-            children: <Widget>[
-              ..._categoriesList.map((categoryName) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: unitSize * 22.5),
-                      child: Text(
-                        '$categoryName:',
-                        textAlign: TextAlign.left,
-                        textScaleFactor: unitSize,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    ),
-                    SizedBox(
-                      height: unitSize * 10,
-                    ),
-                    ...Provider.of<DepartmentalItems>(context)
-                        .getCategoryItemsList(categoryName, _currentShopItems)
-                        .map((categoryItem) => InventoryItemWidget(
-                              inventoryItem: categoryItem,
-                              orderType: _orderType,
-                            ))
-                        .toList(),
-                    Divider(
-                      color: Colors.black38,
-                    ),
-                    SizedBox(
-                      height: unitSize * 25,
-                    )
-                  ],
-                );
-              }).toList()
-            ],
-          ),
-        ),
+    return Padding(
+      padding: EdgeInsets.only(
+        top: unitSize * 25,
+      ),
+      child: Column(
+        children: <Widget>[
+          ..._categoriesList.map((categoryName) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: unitSize * 22.5),
+                  child: Text(
+                    '$categoryName:',
+                    textAlign: TextAlign.left,
+                    textScaleFactor: unitSize,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ),
+                SizedBox(
+                  height: unitSize * 10,
+                ),
+                ...Provider.of<DepartmentalItems>(context)
+                    .getCategoryItemsList(categoryName, _currentShopItems)
+                    .map((categoryItem) => InventoryItemWidget(
+                          inventoryItem: categoryItem,
+                          orderType: _orderType,
+                        ))
+                    .toList(),
+                Divider(
+                  color: Colors.black38,
+                ),
+                SizedBox(
+                  height: unitSize * 25,
+                )
+              ],
+            );
+          }).toList()
+        ],
       ),
     );
   }

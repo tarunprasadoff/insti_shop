@@ -13,6 +13,7 @@ class DepartmentalItems with ChangeNotifier {
             title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 5,
         price: 30,
+        isDeliverable: true,
         isPriceMRP: true),
     InventoryItem(
         key: UniqueKey(),
@@ -22,6 +23,7 @@ class DepartmentalItems with ChangeNotifier {
             title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 12,
         price: 20,
+        isDeliverable: true,
         isPriceMRP: true),
     InventoryItem(
         key: UniqueKey(),
@@ -32,6 +34,7 @@ class DepartmentalItems with ChangeNotifier {
             title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 8,
         price: 450,
+        isDeliverable: true,
         isPriceMRP: true),
     InventoryItem(
         key: UniqueKey(),
@@ -41,6 +44,7 @@ class DepartmentalItems with ChangeNotifier {
             title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 10,
         price: 40,
+        isDeliverable: false,
         isPriceMRP: false),
     InventoryItem(
         key: UniqueKey(),
@@ -50,6 +54,7 @@ class DepartmentalItems with ChangeNotifier {
             title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 4,
         price: 80,
+        isDeliverable: false,
         isPriceMRP: false),
     InventoryItem(
         key: UniqueKey(),
@@ -60,12 +65,19 @@ class DepartmentalItems with ChangeNotifier {
             title: 'Prime Mart', closedCommunity: ClosedCommunity.iITMadras)),
         availableQuantity: 6,
         price: 120,
+        isDeliverable: true,
         isPriceMRP: true),
   ];
 
   void removeInventoryItem(dynamic key) {
     departmentalItemsList.removeWhere((element) => element.key == key);
     notifyListeners();
+  }
+
+  String getAnyErrorMessage(InventoryItem inventoryItem, OrderType orderType) {
+    return (orderType == OrderType.delivery
+        ? (inventoryItem.isDeliverable ? null : 'Not Deliverable')
+        : null);
   }
 
   List<InventoryItem> getCurrentShopItems(dynamic shopKey) {

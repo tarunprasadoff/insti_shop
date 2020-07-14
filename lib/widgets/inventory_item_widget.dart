@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:insti_shop/models/inventory_item.dart';
 import 'package:insti_shop/general/general.dart';
 import 'package:insti_shop/models/type_manager.dart';
+import 'package:insti_shop/providers/cart.dart';
+import 'package:insti_shop/providers/departmental_items.dart';
 import 'package:insti_shop/widgets/item_handler_widget.dart';
+import 'package:provider/provider.dart';
 
 class InventoryItemWidget extends StatelessWidget {
   final InventoryItem inventoryItem;
@@ -51,8 +54,10 @@ class InventoryItemWidget extends StatelessWidget {
         trailing: ItemHandlerWidget(
           itemKey: inventoryItem.key,
           orderType: orderType,
-          errorMessage:
-              inventoryItem.title == 'Broomstick' ? 'Not Deliverable' : null,
+          shopKey: inventoryItem.shopKey,
+          errorMessage: Provider.of<DepartmentalItems>(context, listen: false)
+              .getAnyErrorMessage(inventoryItem, orderType),
+          handlerFunction: Provider.of<Cart>(context).inventoryItemCountHandler,
         ),
       ),
     );

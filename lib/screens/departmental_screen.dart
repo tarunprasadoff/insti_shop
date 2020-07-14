@@ -32,32 +32,45 @@ class DepartmentalScreen extends StatelessWidget {
         Provider.of<DepartmentalItems>(context, listen: false)
             .getCurrentShopItemsListCategories(_currentShopItems);
 
+    Widget getScreenWidget(
+        {Widget imageWidget,
+        Widget noItemWidget,
+        Widget itemListWidget,
+        int itemListLength}) {
+      return Container(
+        width: mediaQuery.width,
+        child: itemListLength != 0
+            ? SingleChildScrollView(
+                child: Column(
+                children: <Widget>[imageWidget, itemListWidget],
+              ))
+            : Column(
+                children: <Widget>[imageWidget, noItemWidget],
+              ),
+      );
+    }
+
     return Scaffold(
       appBar: MyAppBar(_shop.title),
-      body: Container(
-        width: mediaQuery.width,
-        child: Column(
-          children: <Widget>[
-            MyShopDetailImageStack(
-              shop: _shop,
-              imageHeight: _imageHeight,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(unitSize * 15),
-                bottomRight: Radius.circular(unitSize * 15),
-              ),
-            ),
-            _currentShopItems.length == 0
-                ? Expanded(
-                    child: DummyBody(
-                    'No Items Available',
-                    isfullText: true,
-                  ))
-                : InventoryItemsListWidget(
-                    categoriesList: _categoriesList,
-                    currentShopItems: _currentShopItems,
-                    orderType: _orderType,
-                  ),
-          ],
+      body: getScreenWidget(
+        imageWidget: MyShopDetailImageStack(
+          shop: _shop,
+          imageHeight: _imageHeight,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(unitSize * 15),
+            bottomRight: Radius.circular(unitSize * 15),
+          ),
+        ),
+        noItemWidget: Expanded(
+            child: DummyBody(
+          'No Items Available',
+          isfullText: true,
+        )),
+        itemListLength: _currentShopItems.length,
+        itemListWidget: InventoryItemsListWidget(
+          categoriesList: _categoriesList,
+          currentShopItems: _currentShopItems,
+          orderType: _orderType,
         ),
       ),
     );
