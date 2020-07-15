@@ -44,7 +44,7 @@ class InventoryItemWidget extends StatelessWidget {
           ],
         ),
         subtitle: Text(
-          '₹ ${inventoryItem.price.toString()}',
+          '₹ ${(inventoryItem.price * (inventoryItem.isPriceMRP ? 100 / 118 : 1)).toStringAsFixed(2)}',
           textScaleFactor: unitSize,
           style: TextStyle(
               fontSize: 16,

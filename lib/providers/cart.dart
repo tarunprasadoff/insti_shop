@@ -1,9 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:insti_shop/models/inventory_item.dart';
 import 'package:insti_shop/models/shop.dart';
 import 'package:insti_shop/models/type_manager.dart';
 
 class Cart with ChangeNotifier {
+  // ignore: unused_field
+  final String _userPhoneNumber;
+
+  Cart(this._userPhoneNumber) {
+    print(_userPhoneNumber);
+  }
+
   Map<String, Object> _cartDetails = {
     'shopKey': null,
     'orderType': null,
@@ -14,6 +22,27 @@ class Cart with ChangeNotifier {
 
   List<Map<String, Object>> get cartItems {
     return [..._cartItems];
+  }
+
+  int getCurrentOrderItemsTotalCount(dynamic shopKey, OrderType orderType) {
+    int sum = 0;
+    if (shopKey == _cartDetails['shopKey'] &&
+        orderType == _cartDetails['orderType']) {
+      _cartItems.forEach((element) {
+        sum += element['quantity'];
+      });
+    }
+    return sum;
+  }
+
+  double getDepartmentalItemsPriceTotal(List<InventoryItem> currentShopItems) {
+    double sum = 0;
+    _cartItems.forEach((cartItem) {
+      InventoryItem item = currentShopItems
+          .firstWhere((element) => element.key == cartItem['itemKey']);
+      sum += item.price * (item.isPriceMRP ? 100 / 118 : 1);
+    });
+    return sum;
   }
 
   Map<String, Object> get cartDetails {

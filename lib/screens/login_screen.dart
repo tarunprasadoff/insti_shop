@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:insti_shop/general/general.dart';
 import 'package:insti_shop/navigation/tab_manager.dart';
+import 'package:insti_shop/providers/profile.dart';
 
 import 'package:insti_shop/widgets/my_app_bar.dart';
 import 'package:insti_shop/widgets/my_logo.dart';
 import 'package:insti_shop/widgets/my_raised_button.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -27,6 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final _otpFocusNode = FocusNode();
 
   bool _showpass = false;
+
+  String _phoneNumberValue;
+  String _otpValue;
 
   @override
   void initState() {
@@ -74,6 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       } else {
         if (_form.currentState.validate()) {
+          Provider.of<Profile>(context, listen: false)
+              .setPhoneNumber(_phoneNumberValue);
           Navigator.of(context).pushReplacementNamed(TabManager.routeName);
         }
       }
@@ -126,6 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
               _preotp ? TextInputAction.done : TextInputAction.next,
           keyboardType: TextInputType.phone,
           validator: (value) {
+            _phoneNumberValue = value;
             if (value.isEmpty) {
               _labelphoneno = false;
               return 'Please enter your mobile number.';
@@ -172,6 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
           obscureText: !_showpass,
           keyboardType: TextInputType.number,
           validator: (value) {
+            _otpValue = value;
             if (value.isEmpty) {
               _labelotp = false;
               return 'Please enter One-Time Password.';
