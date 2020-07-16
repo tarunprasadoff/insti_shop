@@ -3,7 +3,7 @@ import 'package:insti_shop/widgets/dummy_body.dart';
 import 'package:insti_shop/widgets/my_app_bar.dart';
 
 class GenScreen extends StatelessWidget {
-  static const routeName = '/gen_screen.dart';
+  static const routeName = '/gen_screen';
 
   final String _store;
 

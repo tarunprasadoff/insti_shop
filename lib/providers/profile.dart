@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class Profile with ChangeNotifier {
-  String phoneNumber;
+  String phoneNumber = 'xxxx-xxx-xxx';
   List<Map<dynamic, Address>> _myAddresses = [];
   Address defaultAddressKey;
 

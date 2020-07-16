@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
                 primaryColor: Color(0xff8372b4),
                 primaryColorLight: Colors.deepPurple[200],
                 accentColor: Colors.black,
-                iconTheme: IconThemeData(size: 21),
+                iconTheme: IconThemeData(size: 24),
                 textTheme: TextTheme(
                   bodyText1: TextStyle(
                       color: Color(0xff8372b4), fontSize: 21, height: 1.4),
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
                     fontSize: 14,
                   ),
                 )),
-            home: LoginScreen(),
+            home: TabManager(),
             routes: {
               TabManager.routeName: (_) => TabManager(),
             },
@@ -76,6 +76,9 @@ class MyApp extends StatelessWidget {
                   break;
                 case CartScreen.routeName:
                   return MaterialPageRoute(builder: (context) => CartScreen());
+                  break;
+                case LoginScreen.routeName:
+                  return MaterialPageRoute(builder: (context) => LoginScreen());
                   break;
                 default:
               }

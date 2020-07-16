@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/screens/cart_screen.dart';
+import 'package:insti_shop/screens/feedback_screen.dart';
+import 'package:insti_shop/screens/my_addresses_screen.dart';
 import 'package:insti_shop/screens/orders_screen.dart';
 import 'package:insti_shop/screens/profile_screen.dart';
 import 'package:insti_shop/screens/shop_type_select_screen.dart';
 import 'package:insti_shop/screens/shops_screen.dart';
+import 'package:insti_shop/screens/support_screen.dart';
+import 'package:insti_shop/screens/terms_and_conditions_screen.dart';
 
 class TabNavigator extends StatelessWidget {
   TabNavigator(this._navigatorKey, this._index);
@@ -32,6 +36,11 @@ class TabNavigator extends StatelessWidget {
         }
       },
       ShopsScreen.routeName: (context) => ShopsScreen(arguments),
+      TermsAndConditionsScreen.routeName: (context) =>
+          TermsAndConditionsScreen(),
+      SupportScreen.routeName: (context) => SupportScreen(),
+      FeedbackScreen.routeName: (context) => FeedbackScreen(),
+      MyAddressesScreen.routeName: (context) => MyAddressesScreen(),
     };
   }
 

@@ -5,7 +5,7 @@ import 'package:insti_shop/general/general.dart';
 import 'package:insti_shop/models/type_manager.dart';
 import 'package:insti_shop/providers/cart.dart';
 import 'package:insti_shop/providers/departmental_items.dart';
-import 'package:insti_shop/screens/cart_screen.dart';
+import 'package:insti_shop/widgets/cart_proceed.dart';
 import 'package:insti_shop/widgets/dummy_body.dart';
 import 'package:insti_shop/widgets/inventory_items_list_widget.dart';
 import 'package:insti_shop/widgets/my_app_bar.dart';
@@ -13,7 +13,7 @@ import 'package:insti_shop/widgets/my_shop_detail_image_stack.dart';
 import 'package:provider/provider.dart';
 
 class DepartmentalScreen extends StatelessWidget {
-  static const routeName = '/departmental_screen.dart';
+  static const routeName = '/departmental_screen';
 
   final Map<String, Object> _inputArguments;
 
@@ -34,7 +34,6 @@ class DepartmentalScreen extends StatelessWidget {
         Provider.of<DepartmentalItems>(context, listen: false)
             .getCurrentShopItemsListCategories(_currentShopItems);
     final _cartProvider = Provider.of<Cart>(context);
-    final List<Map<String, Object>> _cartItems = _cartProvider.cartItems;
     final int _currentCartItemsTotalCount =
         _cartProvider.getCurrentOrderItemsTotalCount(_shop.key, _orderType);
     final double _currentCartItemsPriceTotal =
@@ -83,60 +82,9 @@ class DepartmentalScreen extends StatelessWidget {
       ),
       bottomNavigationBar: _currentCartItemsTotalCount == 0
           ? null
-          : Container(
-              padding: EdgeInsets.only(
-                  left: unitSize * 18,
-                  top: unitSize * 5,
-                  right: unitSize * 6,
-                  bottom: unitSize * 5),
-              decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                          width: unitSize * 4,
-                          color: Theme.of(context).primaryColor),
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(unitSize * 40),
-                          topLeft: Radius.circular(unitSize * 40)))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    '$_currentCartItemsTotalCount Item' +
-                        (_currentCartItemsTotalCount > 1 ? 's' : '') +
-                        '  |  ${_currentCartItemsPriceTotal.toStringAsFixed(2)}',
-                    textScaleFactor: unitSize,
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                  FlatButton(
-                    splashColor: Theme.of(context).primaryColor,
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.shopping_cart,
-                          size: unitSize * 32,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        SizedBox(
-                          width: unitSize * 5,
-                        ),
-                        Text(
-                          'Proceed',
-                          textScaleFactor: unitSize,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              .copyWith(color: Theme.of(context).primaryColor),
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true)
-                          .pushNamed(CartScreen.routeName);
-                    },
-                  )
-                ],
-              ),
-            ),
+          : CartProceed(
+              currentCartItemsTotalCount: _currentCartItemsTotalCount,
+              currentCartItemsPriceTotal: _currentCartItemsPriceTotal),
     );
   }
 }

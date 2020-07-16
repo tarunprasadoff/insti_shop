@@ -23,8 +23,6 @@ class OrderTypeDisplay extends StatelessWidget {
           bottom: unitSize * 10),
       child: Card(
         shape: RoundedRectangleBorder(
-            side: BorderSide(
-                color: Theme.of(context).accentColor, width: unitSize * 2),
             borderRadius: BorderRadius.circular(unitSize * 25)),
         elevation: 0,
         child: Container(
@@ -39,7 +37,7 @@ class OrderTypeDisplay extends StatelessWidget {
               ),
               title: Text(
                 _title,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 textScaleFactor: unitSize,
               ),
               trailing: isFinal
@@ -54,9 +52,8 @@ class OrderTypeDisplay extends StatelessWidget {
                         children: <Widget>[
                           Icon(
                             Icons.edit,
-                            //size: mediaQuery.width * 0.045,
                             color: Theme.of(context).primaryColor,
-                            size: unitSize * Theme.of(context).iconTheme.size,
+                            size: unitSize * 18,
                           ),
                           SizedBox(
                             width: unitSize * 5,

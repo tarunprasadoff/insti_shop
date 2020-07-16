@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:insti_shop/general/general.dart';
 import 'package:insti_shop/models/inventory_item.dart';
 import 'package:insti_shop/models/shop.dart';
 import 'package:insti_shop/models/type_manager.dart';
@@ -40,7 +41,8 @@ class Cart with ChangeNotifier {
     _cartItems.forEach((cartItem) {
       InventoryItem item = currentShopItems
           .firstWhere((element) => element.key == cartItem['itemKey']);
-      sum += item.price * (item.isPriceMRP ? 100 / 118 : 1);
+      sum += Price().getActualPrice(item.price, item.isPriceMRP) *
+          cartItem['quantity'];
     });
     return sum;
   }

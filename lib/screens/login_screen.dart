@@ -10,6 +10,7 @@ import 'package:insti_shop/widgets/my_raised_button.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const routeName = '/login_screen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
