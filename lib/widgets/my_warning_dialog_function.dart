@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class MyWarningDialogFunction {
   Function getMyWarningDialogFunction(BuildContext context, double unitSize) {
-    return (String warningMessage) => showDialog(
+    return (String warningTitle, String warningContent) => showDialog(
           barrierDismissible: false,
           context: context,
           builder: (ctx) => ClipRRect(
@@ -14,59 +14,40 @@ class MyWarningDialogFunction {
                 Navigator.of(ctx, rootNavigator: true).pop(false);
               },
               child: AlertDialog(
-                title: Text('Do you want to clear cart and add item?',
+                title: Text(warningTitle,
                     textScaleFactor: unitSize,
                     style: Theme.of(context).textTheme.headline1),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      warningMessage,
-                      textScaleFactor: unitSize,
-                      style: TextStyle(fontSize: 17),
-                    ),
-                    SizedBox(
-                      height: unitSize * 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Expanded(
-                          child: FlatButton(
-                              onPressed: () {
-                                Navigator.of(ctx, rootNavigator: true)
-                                    .pop(false);
-                              },
-                              child: Text(
-                                'No',
-                                textScaleFactor: unitSize,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline1
-                                    .copyWith(
-                                        color: Theme.of(context).primaryColor),
-                              )),
-                        ),
-                        Expanded(
-                          child: FlatButton(
-                              onPressed: () {
-                                Navigator.of(ctx, rootNavigator: true)
-                                    .pop(true);
-                              },
-                              child: Text(
-                                'Yes',
-                                textScaleFactor: unitSize,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline1
-                                    .copyWith(
-                                        color: Theme.of(context).primaryColor),
-                              )),
-                        )
-                      ],
-                    )
-                  ],
+                content: Text(
+                  warningContent,
+                  textScaleFactor: unitSize,
+                  style: TextStyle(fontSize: 17),
                 ),
+                actions: <Widget>[
+                  FlatButton(
+                      onPressed: () {
+                        Navigator.of(ctx, rootNavigator: true).pop(false);
+                      },
+                      child: Text(
+                        'No',
+                        textScaleFactor: unitSize,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1
+                            .copyWith(color: Theme.of(context).primaryColor),
+                      )),
+                  FlatButton(
+                      onPressed: () {
+                        Navigator.of(ctx, rootNavigator: true).pop(true);
+                      },
+                      child: Text(
+                        'Yes',
+                        textScaleFactor: unitSize,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1
+                            .copyWith(color: Theme.of(context).primaryColor),
+                      )),
+                ],
               ),
             ),
           ),

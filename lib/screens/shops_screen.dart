@@ -66,7 +66,26 @@ class _ShopsScreenState extends State<ShopsScreen> {
                 )
               : Expanded(
                   child: ListView.builder(
-                    itemBuilder: (_, i) => ShopItem(_shops[i], _orderType),
+                    itemBuilder: (_, i) => i == 0
+                        ? Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: unitSize * 10),
+                                child: ListTile(
+                                  title: Text(
+                                    'Choose your Store:',
+                                    textScaleFactor: unitSize,
+                                    textAlign: TextAlign.left,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  ),
+                                ),
+                              ),
+                              ShopItem(_shops[i], _orderType),
+                            ],
+                          )
+                        : ShopItem(_shops[i], _orderType),
                     itemCount: _shops.length,
                   ),
                 ),

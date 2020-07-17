@@ -74,7 +74,7 @@ class Cart with ChangeNotifier {
         _setCartDetails(orderType, shop);
         return true;
       } else {
-        if (await getWarningDialog(
+        if (await getWarningDialog('Do you want to clear cart and add item?',
             'Cart currently contains ${TypeManager().getOrderTypeString(orderType, shop.type)} items from ${shop.title}.')) {
           _setCartDetails(orderType, shop);
           _cartItems = [];
@@ -84,7 +84,7 @@ class Cart with ChangeNotifier {
         }
       }
     } else {
-      if (await getWarningDialog(
+      if (await getWarningDialog('Do you want to clear cart and add item?',
           'Cart currently contains items from ${shop.title}.')) {
         _setCartDetails(orderType, shop);
         _cartItems = [];

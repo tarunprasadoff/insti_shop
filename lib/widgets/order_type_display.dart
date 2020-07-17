@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/models/type_manager.dart';
+import 'package:insti_shop/widgets/icon_text_button.dart';
 import 'package:insti_shop/widgets/order_type_select.dart';
 import 'package:insti_shop/general/general.dart';
 
@@ -42,36 +43,13 @@ class OrderTypeDisplay extends StatelessWidget {
               ),
               trailing: isFinal
                   ? null
-                  : RaisedButton(
-                      color: Colors.white,
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(unitSize * 6)),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Icon(
-                            Icons.edit,
-                            color: Theme.of(context).primaryColor,
-                            size: unitSize * 18,
-                          ),
-                          SizedBox(
-                            width: unitSize * 5,
-                          ),
-                          Text(
-                            'Change',
-                            textScaleFactor: unitSize,
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          )
-                        ],
-                      ),
-                      onPressed: () {
+                  : IconTextButton(
+                      onTap: () {
                         OrderTypeSelect().getOrderTypeSelectSheet(
                             context, mediaQuery, _shopType, _exec);
                       },
-                      splashColor: Theme.of(context).primaryColor,
+                      icon: Icons.edit,
+                      title: 'Change',
                     )),
         ),
       ),
