@@ -4,17 +4,11 @@ class Profile with ChangeNotifier {
   String phoneNumber = 'xxxx-xxx-xxx';
 
   static Address tempDefaultAddress =
-      Address(roomNumber: 243, hostel: Hostel.ganga);
+      Address(name: 'Dual', roomNumber: 243, hostel: Hostel.ganga);
   static dynamic tempDefaultAddressKey = UniqueKey();
 
-  List<Map<dynamic, Address>> _myAddresses = [
-    {tempDefaultAddressKey: tempDefaultAddress},
-    {UniqueKey(): Address(roomNumber: 144, hostel: Hostel.sharavati)},
-    {UniqueKey(): Address(roomNumber: 3015, hostel: Hostel.cauvery)},
-    {UniqueKey(): Address(roomNumber: 212, hostel: Hostel.bhadra)},
-    {UniqueKey(): Address(roomNumber: 121, hostel: Hostel.ganga)},
-  ];
-  dynamic defaultAddressKey = tempDefaultAddressKey;
+  List<Map<dynamic, Address>> _myAddresses = [];
+  dynamic defaultAddressKey;
 
   void setPhoneNumber(String phNo) {
     phoneNumber = phNo;
@@ -27,8 +21,11 @@ class Profile with ChangeNotifier {
   }
 
   void addAddress(Address address) {
-    defaultAddressKey = UniqueKey();
-    _myAddresses.add({defaultAddressKey: address});
+    dynamic _key = UniqueKey();
+    if (_myAddresses.length == 0) {
+      defaultAddressKey = _key;
+    }
+    _myAddresses.add({_key: address});
     notifyListeners();
   }
 
@@ -45,8 +42,12 @@ class Profile with ChangeNotifier {
   }
 
   Address get defaultAddress {
-    return _myAddresses.firstWhere(
-        (element) => element.containsKey(defaultAddressKey))[defaultAddressKey];
+    if (defaultAddressKey == null) {
+      return null;
+    } else {
+      return _myAddresses.firstWhere((element) =>
+          element.containsKey(defaultAddressKey))[defaultAddressKey];
+    }
   }
 
   List<Map<dynamic, Address>> get remainingAddresses {
@@ -56,15 +57,17 @@ class Profile with ChangeNotifier {
   }
 
   String getAddressString(Address myAddress) {
-    return 'No.${myAddress.roomNumber}, ${Address(roomNumber: null, hostel: null).hostelDataList[myAddress.hostel]} Hostel, IIT Madras';
+    return '${myAddress.name}, No.${myAddress.roomNumber}, ${Address(name: null, roomNumber: null, hostel: null).hostelDataList[myAddress.hostel]} Hostel, IIT Madras';
   }
 }
 
 class Address {
+  final String name;
   final int roomNumber;
   final Hostel hostel;
 
-  Address({@required this.roomNumber, @required this.hostel});
+  Address(
+      {@required this.name, @required this.roomNumber, @required this.hostel});
 
   static const Map<Hostel, String> _hostelDataList = const {
     Hostel.ganga: 'Ganga',

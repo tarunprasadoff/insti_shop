@@ -6,14 +6,19 @@ class IconTextButton extends StatelessWidget {
     @required this.icon,
     @required this.onTap,
     @required this.title,
+    this.color,
   });
 
   final Function onTap;
   final IconData icon;
   final String title;
+  Color color;
 
   @override
   Widget build(BuildContext context) {
+    if (color == null) {
+      color = Theme.of(context).primaryColor;
+    }
     final mediaQuery = MediaQuery.of(context).size;
     final unitSize = UnitSize().getUnitSize(mediaQuery);
     return RaisedButton(
@@ -26,7 +31,7 @@ class IconTextButton extends StatelessWidget {
         children: <Widget>[
           Icon(
             icon,
-            color: Theme.of(context).primaryColor,
+            color: color,
             size: unitSize * 18,
           ),
           SizedBox(
@@ -36,13 +41,13 @@ class IconTextButton extends StatelessWidget {
             title,
             textScaleFactor: unitSize,
             style: TextStyle(
-              color: Theme.of(context).primaryColor,
+              color: color,
             ),
           )
         ],
       ),
       onPressed: onTap,
-      splashColor: Theme.of(context).primaryColor,
+      splashColor: color,
     );
   }
 }
