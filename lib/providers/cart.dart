@@ -9,9 +9,18 @@ class Cart with ChangeNotifier {
   // ignore: unused_field
   final String _userPhoneNumber;
 
-  Cart(this._userPhoneNumber) {
-    print(_userPhoneNumber);
+  dynamic _deliveryAddressKey;
+
+  void setDeliveryAddressKey(dynamic key) {
+    _deliveryAddressKey = key;
+    notifyListeners();
   }
+
+  dynamic get deliveryAddressKey {
+    return _deliveryAddressKey;
+  }
+
+  Cart(this._userPhoneNumber);
 
   Map<String, Object> _cartDetails = {
     'shopKey': null,

@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/general/general.dart';
+import 'package:insti_shop/providers/cart.dart';
 import 'package:insti_shop/providers/profile.dart';
 import 'package:insti_shop/widgets/icon_text_button.dart';
 import 'package:insti_shop/widgets/my_snack_bar.dart';
 import 'package:provider/provider.dart';
 
 class AddAddressWidget extends StatefulWidget {
+  AddAddressWidget(
+      {@required this.isCartAddressChange,
+      @required this.editAddress,
+      @required this.editAddressKey});
+  final Address editAddress;
+  final dynamic editAddressKey;
+  final bool isCartAddressChange;
   @override
   _AddAddressWidgetState createState() => _AddAddressWidgetState();
 }
@@ -14,6 +22,18 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
   Hostel hostelValue;
   String nameValue;
   String roomNoValue;
+
+  dynamic _nameField;
+  dynamic _roomNoField;
+
+  @override
+  void initState() {
+    _nameField = GlobalKey<FormState>();
+    _roomNoField = GlobalKey<FormState>();
+    hostelValue =
+        widget.editAddressKey == null ? null : widget.editAddress.hostel;
+    super.initState();
+  }
 
   void _updateValue(Hostel value) {
     hostelValue = value;
@@ -36,9 +56,6 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
     final mediaQuery = MediaQuery.of(context).size;
     final unitSize = UnitSize().getUnitSize(mediaQuery);
 
-    final _nameField = GlobalKey<FormState>();
-    final _roomNoField = GlobalKey<FormState>();
-
     final TextStyle _hintStyle = TextStyle(
       fontSize: unitSize * 19,
     );
@@ -58,18 +75,7 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: unitSize * 20,
-          ),
-          Text(
-            'Add your Address',
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1
-                .copyWith(fontWeight: FontWeight.bold),
-            textScaleFactor: unitSize,
-          ),
-          SizedBox(
-            height: unitSize * 30,
+            height: unitSize * 35,
           ),
           Container(
             height: unitSize * 100,
@@ -86,6 +92,10 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
                       child: Form(
                         key: _nameField,
                         child: TextFormField(
+                          onTap: () => _nameFocusNode.requestFocus(),
+                          initialValue: widget.editAddressKey == null
+                              ? null
+                              : widget.editAddress.name,
                           focusNode: _nameFocusNode,
                           style: _hintStyle,
                           decoration: InputDecoration(
@@ -135,6 +145,10 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
                       child: Form(
                         key: _roomNoField,
                         child: TextFormField(
+                          onTap: () => _roomNoFocusNode.requestFocus(),
+                          initialValue: widget.editAddressKey == null
+                              ? null
+                              : widget.editAddress.roomNumber.toString(),
                           focusNode: _roomNoFocusNode,
                           style: _hintStyle,
                           decoration: InputDecoration(
@@ -194,7 +208,8 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
               children: <Widget>[
                 _hostelSelectWidget,
                 IconTextButton(
-                    icon: Icons.add,
+                    icon:
+                        widget.editAddressKey == null ? Icons.add : Icons.edit,
                     onTap: () {
                       bool _condition = _nameField.currentState.validate() &
                           _roomNoField.currentState.validate();
@@ -205,21 +220,48 @@ class _AddAddressWidgetState extends State<AddAddressWidget> {
                             unitSize: unitSize,
                             color: Theme.of(context).errorColor);
                       } else if (_condition) {
-                        Provider.of<Profile>(context, listen: false).addAddress(
-                            Address(
-                                name: nameValue,
-                                roomNumber: int.parse(roomNoValue),
-                                hostel: hostelValue));
-                        Navigator.of(context).pop();
-                        MySnackBar().showSnackBar(
-                            context: context,
-                            title: 'Address Added',
-                            unitSize: unitSize);
+                        if (widget.editAddressKey == null) {
+                          dynamic _currentKey =
+                              Provider.of<Profile>(context, listen: false)
+                                  .addAddress(Address(
+                                      name: nameValue,
+                                      roomNumber: int.parse(roomNoValue),
+                                      hostel: hostelValue));
+                          if (Provider.of<Profile>(context, listen: false)
+                                      .noOfAddresses ==
+                                  1 ||
+                              widget.isCartAddressChange)
+                            Provider.of<Cart>(context, listen: false)
+                                .setDeliveryAddressKey(_currentKey);
+                          Navigator.of(context).pop();
+                          MySnackBar().showSnackBar(
+                              context: context,
+                              title: 'Address Added',
+                              unitSize: unitSize);
+                        } else {
+                          Provider.of<Profile>(context, listen: false)
+                              .editAddress(
+                                  widget.editAddressKey,
+                                  Address(
+                                      name: nameValue,
+                                      roomNumber: int.parse(roomNoValue),
+                                      hostel: hostelValue));
+                          Navigator.of(context).pop();
+                          MySnackBar().showSnackBar(
+                              context: context,
+                              title: 'Address Edited',
+                              unitSize: unitSize);
+                        }
                       }
                     },
-                    title: 'Add New Address')
+                    title: widget.editAddressKey == null
+                        ? 'Add New Address'
+                        : 'Edit your Address')
               ],
             ),
+          ),
+          SizedBox(
+            height: unitSize * 25,
           ),
         ],
       ),

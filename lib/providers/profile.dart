@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 class Profile with ChangeNotifier {
   String phoneNumber = 'xxxx-xxx-xxx';
 
-  static Address tempDefaultAddress =
-      Address(name: 'Dual', roomNumber: 243, hostel: Hostel.ganga);
-  static dynamic tempDefaultAddressKey = UniqueKey();
-
   List<Map<dynamic, Address>> _myAddresses = [];
   dynamic defaultAddressKey;
+
+  int get noOfAddresses {
+    return _myAddresses.length;
+  }
 
   void setPhoneNumber(String phNo) {
     phoneNumber = phNo;
@@ -20,13 +20,18 @@ class Profile with ChangeNotifier {
     notifyListeners();
   }
 
-  void addAddress(Address address) {
+  dynamic addAddress(Address address) {
     dynamic _key = UniqueKey();
     if (_myAddresses.length == 0) {
       defaultAddressKey = _key;
     }
     _myAddresses.add({_key: address});
     notifyListeners();
+    return _key;
+  }
+
+  int getIndexOfAddress(dynamic key) {
+    return _myAddresses.indexWhere((element) => element.containsKey(key));
   }
 
   void removeAddress(dynamic key) {
@@ -58,6 +63,13 @@ class Profile with ChangeNotifier {
 
   String getAddressString(Address myAddress) {
     return '${myAddress.name}, No.${myAddress.roomNumber}, ${Address(name: null, roomNumber: null, hostel: null).hostelDataList[myAddress.hostel]} Hostel, IIT Madras';
+  }
+
+  Address getAddress(dynamic key) {
+    return _myAddresses
+        .firstWhere((element) => element.containsKey(key))
+        .values
+        .toList()[0];
   }
 }
 

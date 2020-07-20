@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insti_shop/screens/add_address_screen.dart';
 import 'package:insti_shop/screens/cart_screen.dart';
 import 'package:insti_shop/screens/feedback_screen.dart';
 import 'package:insti_shop/screens/my_addresses_screen.dart';
@@ -41,6 +42,7 @@ class TabNavigator extends StatelessWidget {
       SupportScreen.routeName: (context) => SupportScreen(),
       FeedbackScreen.routeName: (context) => FeedbackScreen(),
       MyAddressesScreen.routeName: (context) => MyAddressesScreen(),
+      AddAddressScreen.routeName: (context) => AddAddressScreen(arguments),
     };
   }
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:insti_shop/general/general.dart';
+import 'package:insti_shop/providers/cart.dart';
 import 'package:insti_shop/providers/profile.dart';
-import 'package:insti_shop/widgets/add_address_sheet.dart';
+import 'package:insti_shop/screens/add_address_screen.dart';
 import 'package:insti_shop/widgets/icon_text_button.dart';
 import 'package:insti_shop/widgets/my_app_bar.dart';
 import 'package:insti_shop/widgets/my_snack_bar.dart';
@@ -34,7 +35,12 @@ class MyAddressesScreen extends StatelessWidget {
           ? Center(
               child: FlatButton(
                 onPressed: () {
-                  AddAddressSheet().showAddAddressSheet(context, unitSize);
+                  Navigator.of(context).pushNamed(AddAddressScreen.routeName,
+                      arguments: {
+                        'isCartAddressChange': false,
+                        'editAddress': null,
+                        'editAddressKey': null
+                      });
                 },
                 child: Text(
                   '+ Add a New Address',
@@ -46,11 +52,12 @@ class MyAddressesScreen extends StatelessWidget {
                 ),
               ),
             )
-          : Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: unitSize * 6, vertical: unitSize * 10),
-              child: SingleChildScrollView(
+          : SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: unitSize * 6, vertical: unitSize * 10),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     ListTile(
                       title: Column(
@@ -69,8 +76,13 @@ class MyAddressesScreen extends StatelessWidget {
                       trailing: IconTextButton(
                           icon: Icons.add,
                           onTap: () {
-                            AddAddressSheet()
-                                .showAddAddressSheet(context, unitSize);
+                            Navigator.of(context).pushNamed(
+                                AddAddressScreen.routeName,
+                                arguments: {
+                                  'isCartAddressChange': false,
+                                  'editAddress': null,
+                                  'editAddressKey': null
+                                });
                           },
                           title: 'New Address'),
                     ),
@@ -100,7 +112,17 @@ class MyAddressesScreen extends StatelessWidget {
                             .copyWith(fontWeight: FontWeight.normal),
                       ),
                       trailing: IconTextButton(
-                          icon: Icons.edit, onTap: () {}, title: 'Edit'),
+                          icon: Icons.edit,
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                                AddAddressScreen.routeName,
+                                arguments: {
+                                  'isCartAddressChange': false,
+                                  'editAddress': _defaultAddress,
+                                  'editAddressKey': _defaultAddressKey
+                                });
+                          },
+                          title: 'Edit'),
                     ),
                     Divider(
                       color: Theme.of(context).accentColor,
@@ -143,6 +165,10 @@ class MyAddressesScreen extends StatelessWidget {
                                         onTap: () {
                                           _profileProvider.setDefaultAddress(
                                               e.keys.toList()[0]);
+                                          Provider.of<Cart>(context,
+                                                  listen: false)
+                                              .setDeliveryAddressKey(
+                                                  e.keys.toList()[0]);
                                           MySnackBar().showSnackBar(
                                               context: context,
                                               title: 'Default Address Updated',
@@ -183,7 +209,16 @@ class MyAddressesScreen extends StatelessWidget {
                                 ),
                                 IconTextButton(
                                     icon: Icons.edit,
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.of(context).pushNamed(
+                                          AddAddressScreen.routeName,
+                                          arguments: {
+                                            'isCartAddressChange': false,
+                                            'editAddress': e.values.toList()[0],
+                                            'editAddressKey':
+                                                e.keys.toList()[0],
+                                          });
+                                    },
                                     title: 'Edit'),
                               ],
                             ),

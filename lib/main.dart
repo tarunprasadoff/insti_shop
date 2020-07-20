@@ -5,6 +5,7 @@ import 'package:insti_shop/providers/departmental_items.dart';
 import 'package:insti_shop/providers/dummy_data_shops.dart';
 import 'package:insti_shop/navigation/tab_manager.dart';
 import 'package:insti_shop/providers/profile.dart';
+import 'package:insti_shop/screens/add_address_screen.dart';
 import 'package:insti_shop/screens/cart_screen.dart';
 import 'package:insti_shop/screens/departmental_screen.dart';
 import 'package:insti_shop/screens/gen_screen.dart';
@@ -79,6 +80,11 @@ class MyApp extends StatelessWidget {
                   break;
                 case LoginScreen.routeName:
                   return MaterialPageRoute(builder: (context) => LoginScreen());
+                  break;
+                case AddAddressScreen.routeName:
+                  return MaterialPageRoute(
+                      builder: (context) =>
+                          AddAddressScreen(routeSettings.arguments));
                   break;
                 default:
               }

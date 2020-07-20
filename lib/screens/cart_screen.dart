@@ -5,10 +5,14 @@ import 'package:insti_shop/models/type_manager.dart';
 import 'package:insti_shop/providers/cart.dart';
 import 'package:insti_shop/providers/departmental_items.dart';
 import 'package:insti_shop/providers/dummy_data_shops.dart';
+import 'package:insti_shop/providers/profile.dart';
+import 'package:insti_shop/screens/add_address_screen.dart';
 import 'package:insti_shop/widgets/checkout_bar.dart';
 import 'package:insti_shop/widgets/dummy_body.dart';
+import 'package:insti_shop/widgets/icon_text_button.dart';
 import 'package:insti_shop/widgets/inventory_item_widget.dart';
 import 'package:insti_shop/widgets/my_app_bar.dart';
+import 'package:insti_shop/widgets/select_address_sheet.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
@@ -32,6 +36,8 @@ class CartScreen extends StatelessWidget {
         Price().getGSTPrice(_currentItemsTotalPrice, _cartDetails['orderType']);
     final double _netTotalPrice = Price()
         .getNetTotalPrice(_currentItemsTotalPrice, _cartDetails['orderType']);
+    final dynamic _deliveryAddressKey =
+        Provider.of<Cart>(context).deliveryAddressKey;
     return Scaffold(
       appBar: _cartItems.length != 0
           ? MyAppBar(Provider.of<DummyDataShops>(context)
@@ -60,6 +66,66 @@ class CartScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: unitSize * 5),
+                  if ((_cartDetails['orderType'] == OrderType.delivery) ||
+                      _cartDetails['orderType'] == OrderType.pickUpAndDelivery)
+                    Column(
+                      children: <Widget>[
+                        Card(
+                          elevation: 3,
+                          child: ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'Delivering to:',
+                                  textScaleFactor: unitSize,
+                                  style: Theme.of(context).textTheme.bodyText2,
+                                ),
+                                SizedBox(
+                                  height: unitSize * 10,
+                                ),
+                              ],
+                            ),
+                            subtitle: Text(
+                              _deliveryAddressKey == null
+                                  ? 'No Addresses Available'
+                                  : Provider.of<Profile>(context, listen: false)
+                                      .getAddressString(
+                                          Provider.of<Profile>(context)
+                                              .getAddress(_deliveryAddressKey)),
+                              textScaleFactor: unitSize,
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  .copyWith(fontWeight: FontWeight.normal),
+                            ),
+                            trailing: _deliveryAddressKey == null
+                                ? IconTextButton(
+                                    icon: Icons.add,
+                                    onTap: () {
+                                      Navigator.of(context).pushNamed(
+                                          AddAddressScreen.routeName,
+                                          arguments: {
+                                            'isCartAddressChange': true,
+                                            'editAddress': null,
+                                            'editAddressKey': null
+                                          });
+                                    },
+                                    title: 'Add New Address')
+                                : IconTextButton(
+                                    icon: Icons.edit,
+                                    onTap: () {
+                                      SelectAddressSheet()
+                                          .showSelectAddressSheet(
+                                              context, unitSize);
+                                    },
+                                    title: 'Change Address'),
+                          ),
+                        )
+                      ],
+                    ),
                   Card(
                     elevation: 3,
                     child: Padding(
