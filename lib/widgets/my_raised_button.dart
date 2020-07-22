@@ -12,7 +12,7 @@ class MyRaisedButton extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context).size;
     final unitSize = UnitSize().getUnitSize(mediaQuery);
     return RaisedButton(
-      elevation: 10,
+      elevation: 4,
       shape: RoundedRectangleBorder(
           side: BorderSide(
               width: unitSize * 2, color: Theme.of(context).accentColor),

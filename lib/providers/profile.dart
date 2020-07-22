@@ -12,6 +12,7 @@ class Profile with ChangeNotifier {
 
   void setPhoneNumber(String phNo) {
     phoneNumber = phNo;
+    //print(phNo);
     notifyListeners();
   }
 

@@ -10,7 +10,8 @@ import 'package:insti_shop/screens/cart_screen.dart';
 import 'package:insti_shop/screens/departmental_screen.dart';
 import 'package:insti_shop/screens/gen_screen.dart';
 
-import 'package:insti_shop/screens/login_screen.dart';
+import 'package:insti_shop/screens/login_screen2.dart';
+import 'package:insti_shop/screens/otp_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -59,9 +60,10 @@ class MyApp extends StatelessWidget {
                     fontSize: 14,
                   ),
                 )),
-            home: TabManager(),
+            home: LoginScreen2(),
             routes: {
               TabManager.routeName: (_) => TabManager(),
+              OtpScreen.routeName: (_) => OtpScreen(),
             },
             // ignore: missing_return
             onGenerateRoute: (routeSettings) {
@@ -78,8 +80,9 @@ class MyApp extends StatelessWidget {
                 case CartScreen.routeName:
                   return MaterialPageRoute(builder: (context) => CartScreen());
                   break;
-                case LoginScreen.routeName:
-                  return MaterialPageRoute(builder: (context) => LoginScreen());
+                case LoginScreen2.routeName:
+                  return MaterialPageRoute(
+                      builder: (context) => LoginScreen2());
                   break;
                 case AddAddressScreen.routeName:
                   return MaterialPageRoute(
